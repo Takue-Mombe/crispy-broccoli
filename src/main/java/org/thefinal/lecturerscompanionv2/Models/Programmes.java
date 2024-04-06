@@ -4,6 +4,7 @@ package org.thefinal.lecturerscompanionv2.Models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,8 @@ public class Programmes {
     private String programmeId;
     @Column
     private String programmeName;
+    @ManyToOne
+    private School schools;
     @Column
     private String school;
     @Column
