@@ -18,6 +18,8 @@ public class Courses {
     @Column
     private String department;
     @Column
+    private String programme;
+    @Column
     private String Lecturer;
     @Column
     private String chairperson;
