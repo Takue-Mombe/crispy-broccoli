@@ -23,13 +23,13 @@ public class LecturersService {
         return lecturerRepository.findAll();
     }
 
-    public Lecturers getLecturerByNumber(String lecturerNumber) {
-        return lecturerRepository.findById(lecturerNumber).orElse(null);
+    public Lecturers getLecturerByNumber(Long  id) {
+        return lecturerRepository.findById(id).orElse(null);
     }
 
     // Update
-    public Lecturers updateLecturer(String lecturerNumber, Lecturers updatedLecturer) {
-        Lecturers existingLecturer = lecturerRepository.findById(lecturerNumber).orElse(null);
+    public Lecturers updateLecturer(Long id, Lecturers updatedLecturer) {
+        Lecturers existingLecturer = lecturerRepository.findById(id).orElse(null);
         if (existingLecturer != null) {
             existingLecturer.setLName(updatedLecturer.getLName());
             existingLecturer.setEmail(updatedLecturer.getEmail());
@@ -44,7 +44,7 @@ public class LecturersService {
         return null; // Or throw an exception
     }
     // Delete
-    public void deleteLecturer(String lecturerNumber) {
-        lecturerRepository.deleteById(lecturerNumber);
+    public void deleteLecturer(Long id) {
+        lecturerRepository.deleteById(id);
     }
 }

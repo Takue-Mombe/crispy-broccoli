@@ -19,15 +19,15 @@ public class SchoolController {
 
     // Display all schools
     @GetMapping("/list")
-    public School listSchools(Model model) {
+    public String listSchools(Model model) {
         List<School> schools = schoolService.getAllSchools();
         model.addAttribute("schools", schools);
-        return (School) schools; // Assuming you have a Thymeleaf template named "list.html" in the "school" directory
+        return "/Front/AdminCourse"; // Assuming you have a Thymeleaf template named "list.html" in the "school" directory
     }
     @PostMapping("/add")
     public String addSchool(@RequestBody School school, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "school/add";
+            return "/Front/AdminCourse";
         }
         schoolService.createSchool(school);
         return "redirect:/schools/list";

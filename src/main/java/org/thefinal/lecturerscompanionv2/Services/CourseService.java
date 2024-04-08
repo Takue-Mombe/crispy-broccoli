@@ -22,12 +22,12 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Courses getCourseById(String courseId) {
+    public Courses getCourseById(Long courseId) {
         return courseRepository.findById(courseId).orElse(null);
     }
 
     // Update
-    public Courses updateCourse(String courseId, Courses updatedCourse) {
+    public Courses updateCourse(Long courseId, Courses updatedCourse) {
         Courses existingCourse = courseRepository.findById(courseId).orElse(null);
         if (existingCourse != null) {
             existingCourse.setCourseName(updatedCourse.getCourseName());
@@ -43,7 +43,7 @@ public class CourseService {
     }
 
     // Delete
-    public void deleteCourse(String courseId) {
+    public void deleteCourse(Long courseId) {
         courseRepository.deleteById(courseId);
     }
 }

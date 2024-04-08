@@ -9,6 +9,7 @@ import org.thefinal.lecturerscompanionv2.Models.Courses;
 import org.thefinal.lecturerscompanionv2.Services.CourseService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/courses")
@@ -22,9 +23,17 @@ public class CourseController {
         model.addAttribute("courses", courses);
         return "/Front/AdminCourse";
     }
-
+    @GetMapping("/all")
+    public String getAll(@RequestParam(name = "school", required = false) String selectedSchool, Model model) {
+        List<Courses> courses = courseService.getAllCourses();// Assuming your service method returns List<Model>
+        courses=courses.stream().distinct().collect(Collectors.toList());
+        model.addAttribute("courses", courses);
+        model.addAttribute("selectedSchool", selectedSchool);
+        courseService.getAllCourses();
+        return "/Front/AdminCourse"; // Assuming "dropdown" is the name of your Thymeleaf template
+    }
     @PostMapping("/save")
-    public String saveCourse(@ModelAttribute("course") Courses course, BindingResult bindingResult) {
+    public String saveCourse(@RequestBody Courses course, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/Front/AdminCourse";
         }

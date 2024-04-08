@@ -1,8 +1,6 @@
 package org.thefinal.lecturerscompanionv2.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,16 +8,24 @@ import lombok.Setter;
 @Entity(name = "lecturers")@Setter@Getter
 public class Lecturers {
 
-    @Id@Column
-    private String lecturerNumber;
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
     @Column
-    private String lName; @Column
-    private String email; @Column
-    private String phone; @Column
-    private String address; @Column
-    private String hireDate; @Column
-    private String highestDegree; @Column
-    private String courses;
+    public String lecturerNumber;
     @Column
-    private String totalStudents;
+    public String fName;
+    @Column
+    public String lName; @Column
+    public String email;
+    @Column
+    public String hitMail; @Column
+    public String phone; @Column
+    public String address; @Column
+
+    public String department; @Column
+    public String hireDate; @Column
+    public String highestDegree; @Column
+    public String courses;
+    @Column
+    public String totalStudents;
 }

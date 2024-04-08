@@ -1,15 +1,14 @@
 package org.thefinal.lecturerscompanionv2.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity(name = "courses")
 @Getter@Setter
 public class Courses {
-    @Id@Column
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long id;
     private String CourseId;
     @Column
     private String courseName;
