@@ -33,7 +33,6 @@ public class CourseService {
             existingCourse.setCourseName(updatedCourse.getCourseName());
             existingCourse.setSchool(updatedCourse.getSchool());
             existingCourse.setDepartment(updatedCourse.getDepartment());
-            existingCourse.setProgramme(updatedCourse.getProgramme());
             existingCourse.setLecturer(updatedCourse.getLecturer());
             existingCourse.setChairperson(updatedCourse.getChairperson());
             existingCourse.setTotalStudents(updatedCourse.getTotalStudents());

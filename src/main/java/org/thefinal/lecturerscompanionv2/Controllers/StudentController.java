@@ -24,11 +24,11 @@ public class StudentController {
         return "Front/AdminStudents";
     }
     @PostMapping("/save")
-    public String saveStudent(@ModelAttribute("student") Students student, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "students/student-form";
-        }
-        studentService.saveStudent(student);
+    public String saveStudents(@ModelAttribute Students students) {
+        // Process the list of students
+
+            studentService.saveStudent(students);
+
         return "redirect:/students/list";
     }
     @GetMapping("/delete")

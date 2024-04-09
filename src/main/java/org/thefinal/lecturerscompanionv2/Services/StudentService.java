@@ -1,6 +1,7 @@
 package org.thefinal.lecturerscompanionv2.Services;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thefinal.lecturerscompanionv2.Models.Students;
 import org.thefinal.lecturerscompanionv2.Repositories.StudentRepo;
@@ -10,7 +11,7 @@ import java.util.List;
 @Service
 public class StudentService {
     private final StudentRepo studentRepo;
-
+    @Autowired
     public StudentService(StudentRepo studentRepo) {
         this.studentRepo = studentRepo;
     }
@@ -31,7 +32,6 @@ public class StudentService {
             existingStudent.setYearEnrolled(updatedStudent.getYearEnrolled());
             existingStudent.setFirstname(updatedStudent.getFirstname());
             existingStudent.setLastname(updatedStudent.getLastname());
-            existingStudent.setProgramme(updatedStudent.getProgramme());
             existingStudent.setPhone(updatedStudent.getPhone());
             existingStudent.setEmail(updatedStudent.getEmail());
             existingStudent.setNextOfKin(updatedStudent.getNextOfKin());

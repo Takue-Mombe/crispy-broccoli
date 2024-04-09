@@ -47,4 +47,7 @@ public class LecturersService {
     public void deleteLecturer(Long id) {
         lecturerRepository.deleteById(id);
     }
+    public Long lecturerCount(){
+        return lecturerRepository.count();
+    }
 }

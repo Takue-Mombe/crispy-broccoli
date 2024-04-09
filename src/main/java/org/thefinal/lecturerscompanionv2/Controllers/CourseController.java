@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.thefinal.lecturerscompanionv2.Models.Courses;
+import org.thefinal.lecturerscompanionv2.Models.Programmes;
 import org.thefinal.lecturerscompanionv2.Services.CourseService;
 
 import java.util.List;
@@ -33,12 +34,14 @@ public class CourseController {
         return "/Front/AdminCourse"; // Assuming "dropdown" is the name of your Thymeleaf template
     }
     @PostMapping("/save")
-    public String saveCourse(@RequestBody Courses course, BindingResult bindingResult) {
+    public String saveProgrammes(@ModelAttribute Courses coursesList, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/Front/AdminCourse";
+            return "Front/AdminCourse";
         }
-        courseService.createCourse(course);
-        return "redirect:/courses/list";
+            courseService.createCourse(coursesList);
+
+        return "Front/AdminCourse";
     }
+
 
 }

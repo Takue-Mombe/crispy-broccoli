@@ -1,6 +1,5 @@
 package org.thefinal.lecturerscompanionv2.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thefinal.lecturerscompanionv2.Models.Programmes;
 import org.thefinal.lecturerscompanionv2.Repositories.ProgrammeRepo;
@@ -9,12 +8,15 @@ import java.util.List;
 
 @Service
 public class ProgrammeService {
-    @Autowired
-    private ProgrammeRepo programmeRepository;
+    private final ProgrammeRepo programmeRepository;
+
+    public ProgrammeService(ProgrammeRepo programmeRepository) {
+        this.programmeRepository = programmeRepository;
+    }
 
     // Create
-    public Programmes createProgramme(Programmes programme) {
-        return programmeRepository.save(programme);
+    public void createProgramme(Programmes programme) {
+        programmeRepository.save(programme);
     }
 
     // Read
@@ -42,5 +44,10 @@ public class ProgrammeService {
     // Delete
     public void deleteProgramme(String programmeId) {
         programmeRepository.deleteById(programmeId);
+    }
+
+    //count
+    public Long programmeCount(){
+     return programmeRepository.count();
     }
 }

@@ -21,7 +21,7 @@ public class Lecturers {
     public String hitMail; @Column
     public String phone; @Column
     public String address; @Column
-
+    public String school; @Column
     public String department; @Column
     public String hireDate; @Column
     public String highestDegree; @Column

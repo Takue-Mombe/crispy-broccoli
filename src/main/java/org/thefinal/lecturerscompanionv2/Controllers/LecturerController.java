@@ -17,22 +17,25 @@ public class LecturerController {
     private LecturersService lecturerService;
 
     @GetMapping("/list")
-    public String listLecturers(Model model) {
+    public String listLecturers(@RequestParam(name = "school",required = false) String selectedSchool, Model model) {
         List<Lecturers> lecturers = lecturerService.getAllLecturers();
+        model.addAttribute("selectedSchool",selectedSchool);
         model.addAttribute("lecturers", lecturers);
+        lecturerService.getAllLecturers();
         return "Front/AdminLecturer";
     }
     @PostMapping("/save")
-    public String saveLecturer(@ModelAttribute("lecturer") Lecturers lecturer, BindingResult bindingResult) {
+    public String saveLecturer(@ModelAttribute Lecturers lecturer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "Front/AdminLecturer";
         }
         lecturerService.createLecturer(lecturer);
-        return "redirect:/lecturers/list";
+        return "redirect:Front/AdminLecturer";
     }
     @GetMapping("/delete")
-    public String deleteLecturer(@RequestParam("lecturerNumber") String lecturerNumber) {
+    public String deleteLecturer(@RequestParam("lecturerNumber") Long lecturerNumber) {
         lecturerService.deleteLecturer(lecturerNumber);
         return "redirect:/lecturers/list";
     }
+
 }

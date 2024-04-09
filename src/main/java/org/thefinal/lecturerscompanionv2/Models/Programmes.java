@@ -1,12 +1,11 @@
 package org.thefinal.lecturerscompanionv2.Models;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity(name = "programmes")@Setter@Getter
 public class Programmes {
@@ -16,8 +15,6 @@ public class Programmes {
     private String programmeId;
     @Column
     private String programmeName;
-    @ManyToOne
-    private School schools;
     @Column
     private String school;
     @Column
