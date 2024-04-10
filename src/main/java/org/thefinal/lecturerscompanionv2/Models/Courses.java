@@ -16,8 +16,10 @@ public class Courses {
     private String school;
     @Column
     private String department;
-    @Column
-    private String programmeId;
+
+    @ManyToOne
+    @JoinColumn(name = "programme_id")
+    private Programmes programme;
     @Column
     private String Lecturer;
     @Column

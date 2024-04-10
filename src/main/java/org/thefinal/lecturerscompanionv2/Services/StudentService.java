@@ -41,6 +41,11 @@ public class StudentService {
         }
         return null; // Or throw an exception
     }
+
+    // Method to retrieve students by program ID
+    public List<Students> getStudentsByProgramId(String programId) {
+        return studentRepo.findByProgrammeId(programId);
+    }
     // Delete
     public void deleteStudent(String regNumber) {
         studentRepo.deleteById(regNumber);

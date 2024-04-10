@@ -24,6 +24,12 @@ public class CourseController {
         model.addAttribute("courses", courses);
         return "/Front/AdminCourse";
     }
+    @GetMapping("/{courseId}")
+    public String showCourse(@PathVariable String courseId, Model model) {
+        List<String> studentNames = courseService.getStudentNamesForCourse(courseId);
+        model.addAttribute("students", studentNames);
+        return "/Front/LAttendanceRecord"; // Name of your Thymeleaf template
+    }
     @GetMapping("/all")
     public String getAll(@RequestParam(name = "school", required = false) String selectedSchool, Model model) {
         List<Courses> courses = courseService.getAllCourses();// Assuming your service method returns List<Model>

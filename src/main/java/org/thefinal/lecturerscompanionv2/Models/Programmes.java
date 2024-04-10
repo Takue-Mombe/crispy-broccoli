@@ -11,7 +11,7 @@ import java.util.Set;
 public class Programmes {
 
     @Id
-    @Column
+    @Column(name = "programme_id")
     private String programmeId;
     @Column
     private String programmeName;
@@ -21,6 +21,8 @@ public class Programmes {
     private String Chairperson;
     @Column
     private String TotalStudents;
+    @OneToMany(mappedBy = "programme")
+    private Set<Students> students;
 
 
 }

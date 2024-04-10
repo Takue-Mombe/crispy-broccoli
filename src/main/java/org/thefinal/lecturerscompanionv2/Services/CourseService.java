@@ -3,9 +3,12 @@ package org.thefinal.lecturerscompanionv2.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thefinal.lecturerscompanionv2.Models.Courses;
+import org.thefinal.lecturerscompanionv2.Models.Students;
 import org.thefinal.lecturerscompanionv2.Repositories.CourseRepo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CourseService {
@@ -44,5 +47,17 @@ public class CourseService {
     // Delete
     public void deleteCourse(Long courseId) {
         courseRepository.deleteById(courseId);
+    }
+
+    public List<String> getStudentNamesForCourse(String courseId) {
+        List<String> studentNames = new ArrayList<>();
+        Courses course = courseRepository.findByCourseId(courseId);
+        if (course != null) {
+            Set<Students> students = course.getProgramme().getStudents();
+            for (Students student : students) {
+                studentNames.add(student.getFirstname() + " " + student.getLastname());
+            }
+        }
+        return studentNames;
     }
 }

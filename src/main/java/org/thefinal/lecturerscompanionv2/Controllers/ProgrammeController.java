@@ -7,19 +7,23 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.thefinal.lecturerscompanionv2.Models.Programmes;
+import org.thefinal.lecturerscompanionv2.Models.Students;
 import org.thefinal.lecturerscompanionv2.Repositories.StudentRepo;
 import org.thefinal.lecturerscompanionv2.Services.ProgrammeService;
+import org.thefinal.lecturerscompanionv2.Services.StudentService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/programmes")
 public class ProgrammeController {
     @Autowired
     private ProgrammeService programmeService;
 
     @Autowired
-    private StudentRepo studentRepo;
+    private StudentService studentService;
 
     @GetMapping("/list")
     public String listProgrammes(Model model) {
@@ -27,7 +31,18 @@ public class ProgrammeController {
         model.addAttribute("programmes", programmes);
         return "Front/AdminProgrammes";
     }
+    @GetMapping("/students")
+    public Map<String, Object> getStudentsByProgramId(@RequestParam("programId") String programId) {
+        Map<String, Object> response = new HashMap<>();
 
+        List<Students> students = studentService.getStudentsByProgramId(programId);
+        int totalCount = students.size(); // Assuming the size of the list represents the total count
+
+        response.put("students", students);
+        response.put("totalCount", totalCount);
+        System.out.println(totalCount);
+        return response;
+    }
     @PostMapping("/save")
     public String saveProgrammes(@ModelAttribute Programmes programmes, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

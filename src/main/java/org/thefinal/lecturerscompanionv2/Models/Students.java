@@ -9,13 +9,15 @@ import java.util.Set;
 @Entity(name = "students")
 @Getter@Setter
 public class Students {
-    @Id@Column
+    @Id @Column(name = "reg_number")
     private String regNumber;
     @Column
     private String yearEnrolled;
     @Column
     private String firstname;
-    private String programmeId;
+    @ManyToOne
+    @JoinColumn(name = "programme_id")
+    private Programmes programme;
     @Column
     private String lastname; @Column
     private String phone; @Column
