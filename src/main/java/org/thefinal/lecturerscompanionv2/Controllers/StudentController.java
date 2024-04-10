@@ -23,6 +23,7 @@ public class StudentController {
         model.addAttribute("students", students);
         return "Front/AdminStudents";
     }
+
     @PostMapping("/save")
     public String saveStudents(@ModelAttribute Students students) {
         // Process the list of students

@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity(name = "courses")
-@Getter@Setter
+@Getter
+@Setter
 public class Courses {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String courseId;
     @Column
     private String courseName;

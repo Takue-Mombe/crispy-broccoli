@@ -1,12 +1,11 @@
 package org.thefinal.lecturerscompanionv2.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.thefinal.lecturerscompanionv2.Models.Courses;
-import org.thefinal.lecturerscompanionv2.Models.Programmes;
+import org.thefinal.lecturerscompanionv2.Models.Students;
 import org.thefinal.lecturerscompanionv2.Services.CourseService;
 
 import java.util.List;
@@ -15,8 +14,11 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/courses")
 public class CourseController {
-    @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
+
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @GetMapping("/list")
     public String listCourses(Model model) {
@@ -25,12 +27,17 @@ public class CourseController {
         return "/Front/AdminCourse";
     }
 
+
     @GetMapping("/{courseId}/students")
-    public String getStudentsForCourse(@PathVariable String courseId, Model model) {
-        List<String> studentNames = courseService.getStudentNamesForCourse(courseId);
-        model.addAttribute("students", studentNames);
-        return "/Front/LAttendanceRecord :: studentList"; // Return the fragment containing the student names
+    @ResponseBody
+    public List<Students> getStudentsForCourse(@PathVariable String courseId) {
+        // Assuming courseService.getStudentsForCourse(courseId) returns a list of Student objects
+        return courseService.getStudentsForCourse(courseId);
     }
+
+
+
+
     @GetMapping("/all")
     public String getAll(@RequestParam(name = "school", required = false) String selectedSchool, Model model) {
         List<Courses> courses = courseService.getAllCourses();

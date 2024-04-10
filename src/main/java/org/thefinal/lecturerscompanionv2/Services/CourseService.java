@@ -1,10 +1,14 @@
 package org.thefinal.lecturerscompanionv2.Services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.thefinal.lecturerscompanionv2.Models.Courses;
 import org.thefinal.lecturerscompanionv2.Models.Students;
 import org.thefinal.lecturerscompanionv2.Repositories.CourseRepo;
+import org.thefinal.lecturerscompanionv2.Repositories.StudentRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +18,9 @@ import java.util.Set;
 public class CourseService {
     @Autowired
     private CourseRepo courseRepository;
-
-    // Create
+    @Autowired
+    private StudentRepo studentRepo;
+   // Create
     public Courses createCourse(Courses course) {
         return courseRepository.save(course);
     }
@@ -49,15 +54,20 @@ public class CourseService {
         courseRepository.deleteById(courseId);
     }
 
-    public List<String> getStudentNamesForCourse(String courseId) {
-        List<String> studentNames = new ArrayList<>();
+
+
+    public List<Students> getStudentsForCourse(String courseId) {
+        // Retrieve the course by courseId
         Courses course = courseRepository.findByCourseId(courseId);
-        if (course != null) {
-            Set<Students> students = course.getProgramme().getStudents();
-            for (Students student : students) {
-                studentNames.add(student.getFirstname() + " " + student.getLastname());
-            }
+
+        // Check if the course exists
+        if (course == null) {
+            throw new RuntimeException("Course not found with ID: " + courseId);
         }
-        return studentNames;
+
+        // Retrieve the students enrolled in the course
+        return studentRepo.findByProgramme(course.getProgramme());
     }
+
+
 }
