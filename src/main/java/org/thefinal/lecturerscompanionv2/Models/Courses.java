@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity(name = "courses")
 @Getter
 @Setter
@@ -28,6 +30,7 @@ public class Courses {
     private String chairperson;
     @Column
     private String totalStudents;
-
+    @OneToMany(mappedBy = "course")
+    private Set<AttendanceRecords> attendanceRecords;
 
 }

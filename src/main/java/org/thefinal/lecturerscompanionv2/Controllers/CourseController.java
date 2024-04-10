@@ -31,9 +31,11 @@ public class CourseController {
     @GetMapping("/{courseId}/students")
     @ResponseBody
     public List<Students> getStudentsForCourse(@PathVariable String courseId) {
-        // Assuming courseService.getStudentsForCourse(courseId) returns a list of Student objects
-        return courseService.getStudentsForCourse(courseId);
+        List<Students> students = courseService.getStudentsForCourse(courseId);
+
+        return students;
     }
+
 
 
 

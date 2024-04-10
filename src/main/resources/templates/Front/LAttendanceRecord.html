@@ -235,11 +235,11 @@
                         <th class="text-center filter-false sorter-false">Actions</th>
                       </tr>
                       </thead>
-                      <tbody id="studentTableBody">
+                      <tbody id="studentTableBody" >
                       <!-- Thymeleaf expressions to populate table rows -->
-                      <tr th:each="students : ${students}">
-                        <td th:text="${student.firstname + ' ' + student.lastname}"></td>
-                        <td th:text="${student.regNumber}"></td>
+                      <tr style="background: white" th:each="students : ${students}" >
+                        <td style="color: white" th:text="${student.firstname + ' ' + student.lastname}"></td>
+                        <td style="color: white" th:text="${student.regNumber}"></td>
                         <td><!-- Add Thymeleaf expression for Number of Lectures Attended --></td>
                         <td><!-- Add Thymeleaf expression for Total Number of Lecturers --></td>
                         <td><!-- Add Thymeleaf expression for Overall Percentage --></td>
@@ -397,7 +397,7 @@
           // AJAX call to fetch students for the selected course
           $.ajax({
             type: "GET",
-            url: '/courses/' + selectedCourseId + '/students', // URL to your endpoint to fetch students for the selected course
+            url: '/courses/' + selectedCourseId + '/students',
             success: function(data) {
               // Update the table with the fetched student data
               updateStudentTable(data);
@@ -413,24 +413,18 @@
         // Clear existing table rows
         $("#studentTableBody").empty();
 
-        // Check if students is an array
-        if (Array.isArray(students)) {
-          // Iterate over the fetched students and append rows to the table
-          students.forEach(function(student) {
-            var row = "<tr>" +
-                    "<td>" + student.firstname + " " + student.lastname + "</td>" +
-                    "<td>" + student.regNumber + "</td>" +
-                    "<td><!-- Add data for Number of Lectures Attended --></td>" +
-                    "<td><!-- Add data for Total Number of Lecturers --></td>" +
-                    "<td><!-- Add data for Overall Percentage --></td>" +
-                    "<td><!-- Add action buttons or links --></td>" +
-                    "</tr>";
-            $("#studentTableBody").append(row);
-          });
-        } else {
-          // If students is not an array, log an error
-          console.error("Error: Data received is not an array.");
-        }
+        // Iterate over the fetched students and append rows to the table
+        students.forEach(function(student) {
+          var row = "<tr>" +
+                  "<td>" + student.firstname + " " + student.lastname + "</td>" +
+                  "<td>" + student.regNumber + "</td>" +
+                  "<td><!-- Add data for Number of Lectures Attended --></td>" +
+                  "<td><!-- Add data for Total Number of Lecturers --></td>" +
+                  "<td><!-- Add data for Overall Percentage --></td>" +
+                  "<td><!-- Add action buttons or links --></td>" +
+                  "</tr>";
+          $("#studentTableBody").append(row);
+        });
       }
     </script>
 

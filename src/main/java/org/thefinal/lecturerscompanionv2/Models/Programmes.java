@@ -1,6 +1,7 @@
 package org.thefinal.lecturerscompanionv2.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Programmes {
     @Column
     private String TotalStudents;
     @OneToMany(mappedBy = "programme")
+    @JsonIgnore
     private Set<Students> students;
 
 

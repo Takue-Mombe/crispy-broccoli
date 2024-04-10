@@ -19,6 +19,9 @@ public class Students {
     @JoinColumn(name = "programme_id")
     private Programmes programme;
 
+    @ManyToMany(mappedBy = "students")
+    private Set<AttendanceRecords> attendanceRecords;
+
 
     @Column
     private String lastname; @Column
