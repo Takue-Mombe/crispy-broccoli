@@ -1,0 +1,480 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>coursework</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/styles.min.css" />
+    <style>
+
+
+      /* Style for form labels */
+      .form-group label {
+        font-weight: bold;
+      }
+
+      /* Style for form inputs */
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+      }
+
+      /* Style for form submit button */
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Style for modal body */
+      .modal-body {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <nav
+        class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion p-0"
+        style="background: linear-gradient(90deg, #232732 0%, #1f232d 100%)"
+      >
+        <div class="container-fluid d-flex flex-column p-0">
+          <a
+            class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+            href="index.html"
+            ><div class="sidebar-brand-icon">
+              <img
+                style="width: 60px; height: 60px; border-radius: 3px"
+                src="assets/img/HIT%20LOGO.jpg"
+              /></div
+          ></a>
+          <hr class="sidebar-divider my-0" />
+          <ul class="navbar-nav text-light" id="accordionSidebar">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html"
+                ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a
+              ><a class="nav-link" href="employees.html"
+                ><i class="fas fa-users"></i><span>Lecturers</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="projects.html"
+                ><i class="fas fa-table"></i><span>Courses</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="clients.html"
+                ><i class="fas fa-handshake"></i><span>Users</span></a
+              >
+            </li>
+            <li class="nav-item"></li>
+            <li class="nav-item"></li>
+          </ul>
+          <div class="text-center d-none d-md-inline">
+            <button
+              class="btn rounded-circle border-0"
+              id="sidebarToggle"
+              type="button"
+            ></button>
+          </div>
+        </div>
+      </nav>
+      <div
+        class="d-flex flex-column"
+        id="content-wrapper"
+        style="background: #2d2f3e"
+      >
+        <div id="content" style="color: #2d2f3e">
+          <nav
+            class="navbar navbar-light navbar-expand shadow mb-4 topbar static-top"
+            style="background: #1f232d"
+          >
+            <div class="container-fluid">
+              <button
+                class="btn btn-light d-md-none rounded-circle me-3"
+                id="sidebarToggleTop"
+                type="button"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              <form
+                class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search"
+              >
+                <div class="input-group">
+                  <input
+                    class="bg-light form-control form-control-sm border-0 small"
+                    type="text"
+                    placeholder="Search for ..."
+                  /><button class="btn btn-primary py-0" type="button">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </nav>
+          <div class="container-fluid" style="margin-bottom: 50px">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-6">
+                <h3 class="text-white mb-4">Dashboard</h3>
+              </div>
+              <div
+                class="col-12 col-sm-6 col-md-6 text-end"
+                style="margin-bottom: 30px"
+              >
+                <form id="departmentForm" action="@{/api/all}" method="get">
+                  <div class="btn-group">
+                    <button id="schoolButton" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Select a school
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#" data-department="Engineering">Engineering</a></li>
+                      <li><a class="dropdown-item" href="#" data-department="Finance">Finance</a></li>
+                      <li><a class="dropdown-item" href="#" data-department="IST">Information Science & Technology</a></li>
+                      <li><a class="dropdown-item" href="#" data-department="Health">Allied Health</a></li>
+                    </ul>
+                  </div>
+                  <input type="hidden" id="departmentInput" name="department">
+                  <button type="submit" style="display: none;"></button>
+                </form>
+              </div>
+              <div class="col">
+                <a class="btn btn-primary" role="button" id="openModalButton">
+                  <i class="fa fa-plus"></i>&nbsp;Add Lecturer
+                </a>
+              </div>
+
+            </div>
+            <div
+              class="card"
+              id="TableSorterCard"
+              style="border-style: none; border-radius: 6.5px"
+            >
+              <div
+                class="card-header py-3"
+                style="border-width: 0px; background: rgb(23, 25, 33)"
+              >
+                <div class="row table-topper align-items-center">
+                  <div
+                    class="col-12 col-sm-5 col-md-6 text-start"
+                    style="margin: 0px; padding: 5px 15px"
+                  >
+                    <p class="m-0 fw-bold" style="color: rgb(255, 255, 255)">
+                      Course name
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div
+                    class="table-responsive"
+                    style="border-top-style: none; background: #171921"
+                  >
+                    <table
+                      class="table table-striped table tablesorter"
+                      id="ipi-table"
+                    >
+                      <thead
+                        class="thead-dark"
+                        style="
+                          background: rgb(33, 37, 48);
+                          border-width: 0px;
+                          border-color: rgb(0, 0, 0);
+                          border-bottom-color: #21252f;
+                        "
+                      >
+                        <tr
+                          style="
+                            border-style: none;
+                            border-color: rgba(255, 255, 255, 0);
+                            background: #21252f;
+                          "
+                        >
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Lecturer Number</th>
+                          <th class="text-center">First Name</th>
+                          <th class="text-center">Last Name</th>
+                          <th class="text-center" style="text-align: center">
+                            Email
+                          </th> <th class="text-center" style="text-align: center">
+                          HitMail
+                        </th>
+                          <th class="text-center" style="text-align: center">Phone Number</th>
+                          <th style="text-align: center">Address</th>
+                          <th style="text-align: center">Department</th>
+                          <th class="text-center" style="text-align: center">Hire Date</th>
+                          <th class="text-center" style="text-align: center">Highest Degree</th>
+                          <th class="text-center" style="text-align: center">Courses</th>
+                          <th class="text-center" style="text-align: center">Total Students</th>
+                          <th class="text-center filter-false sorter-false">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-center" style="border-top-width: 0px">
+                        <tr style="background: #262a38" th:each="lecturers:${lecturers}">
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.id}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.id}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.lecturerNumber}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.fName}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.lName}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.email}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.hitMail}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.phone}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.address}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.department}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.hireDate}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.highestDegree}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.courses}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.school}"></td>
+                          <td style="color: rgb(255, 255, 255)" th:text="${lecturers.totalStudents}"></td>
+
+                          <td
+                            class="text-center align-middle"
+                            style="max-height: 60px; height: 60px"
+                          >
+
+                            <a
+                              class="btn btnMaterial btn-flat primary semicircle"
+                              role="button"
+                              href="#"
+                              style="color: #00bdff"
+                              ><i class="far fa-eye"></i></a
+                            >
+
+                            <a href="#" class="edit-link" data-bs-toggle="modal" data-bs-target="#courseModal">Edit</a>
+
+
+                            <a th:href="@{'/lecturers/delete?lecturerNumber=' + ${lecturers.id}}"
+                                class="btn btnMaterial btn-flat accent btnNoBorders checkboxHover"
+                                role="button"
+                                style="margin-left: 5px"
+                                data-bs-toggle="modal"
+                                data-bs-target="#delete-modal">
+                            <i class="fas fa-trash btnNoBorders" style="color: #dc3545"></i>
+                          </a>
+                          </td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer
+          class="bg-white sticky-footer"
+          style="background: linear-gradient(#1f232d 0%, #1f232d 100%)"
+        >
+          <div class="container my-auto">
+            <div
+              class="text-center my-auto copyright text-gray-100"
+              style="font-size: 13.5px"
+            >
+              <span>Copyright © LC<span id="year">2022</span></span>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <a class="border rounded d-inline scroll-to-top" href="#page-top"
+        ><i class="fas fa-angle-up"></i
+      ></a>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Lecturer Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form th:action="@{/lecturer/save}" method="post">
+              <div class="form-group">
+                <label for="lecturerNumber">Lecturer Number:</label>
+                <input type="text" id="lecturerNumber" name="lecturerNumber" required>
+              </div>
+              <div class="form-group">
+                <label for="fName">First Name:</label>
+                <input type="text" id="fName" name="fName" required>
+              </div>
+
+              <div class="form-group">
+                <label for="lName">Last Name:</label>
+                <input type="text" id="lName" name="lName" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="hitMail">HitMail:</label>
+                <input type="text" id="hitMail" name="hitMail" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+              </div>
+              <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+              </div>
+              <div class="form-group">
+                <label for="departments">Department:</label>
+                <label for="departments"></label><input type="text" id="departments" name="department" required>
+              </div>
+              <div class="form-group">
+                <label for="hireDate">Hire Date:</label>
+                <input type="date" id="hireDate" name="hireDate" required>
+              </div>
+              <div class="form-group">
+                <label for="highestDegree">Highest Degree:</label>
+                <input type="text" id="highestDegree" name="highestDegree" required>
+              </div>
+              <div class="form-group">
+                <label for="courses">Courses:</label>
+                <input type="text" id="courses" name="courses" required>
+              </div>
+              <div class="form-group">
+                <label for="totalStudents">Total Students:</label>
+                <label for="totalStudents"></label><input type="text" id="totalStudents" name="totalStudents">
+              </div>
+              <div class="form-group">
+                <label for="school">School:</label>
+                <label for="school"></label><input type="text" id="school" name="school" required>
+              </div>
+
+
+
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("openModalButton").addEventListener("click", function() {
+        $('#exampleModal').modal('show');
+      });
+
+      // Function to populate the modal with data
+      function populateModal(id,lecturerNumber, fName, lName, email,hitMail,phone,address,school,department,hireDate,highestDegree,courses,totalStudents) {
+        document.getElementById('id').value = id;
+        document.getElementById('lecturerNumber').value = lecturerNumber;
+        document.getElementById('fName').value = fName;
+        document.getElementById('lName').value = lName;
+        document.getElementById('email').value = email;
+        document.getElementById('hitMail').value = hitMail;
+        document.getElementById('phone').value = phone;
+        document.getElementById('address').value = address;
+        document.getElementById('school').value = school;
+        document.getElementById('department').value = department;
+        document.getElementById('hireDate').value = hireDate;
+        document.getElementById('courses').value = courses;
+        document.getElementById('highestDegree').value = highestDegree;
+        document.getElementById('totalStudents').value = totalStudents;
+      }
+
+      // Add event listeners to the "Edit" links
+      document.addEventListener('DOMContentLoaded', function () {
+        const editLinks = document.querySelectorAll('.edit-link');
+        editLinks.forEach(function (link) {
+          link.addEventListener('click', function (event) {
+            const row = event.target.closest('tr');
+            const id = row.querySelector('.id').innerText;
+            const lecturerNumber = row.querySelector('.lecturerNumber').innerText;
+            const fName = row.querySelector('.fName').innerText;
+            const lName = row.querySelector('.lName').innerText;
+            const email = row.querySelector('.email').innerText;
+            const hitMail = row.querySelector('.hitMail').innerText;
+            const phone = row.querySelector('.phone').innerText;
+            const address = row.querySelector('.address').innerText;
+            const school = row.querySelector('.school').innerText;
+            const department = row.querySelector('.department').innerText;
+            const hireDate = row.querySelector('.hireDate').innerText;
+            const courses = row.querySelector('.courses').innerText;
+            const highestDegree = row.querySelector('.highestDegree').innerText;
+            const totalStudents = row.querySelector('.totalStudents').innerText;
+            populateModal(id,lecturerNumber, fName, lName, email,hitMail,phone,address,school,department,hireDate,highestDegree,courses,totalStudents);
+          });
+        });
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+  </body>
+</html>

@@ -12,7 +12,7 @@ public class Programmes {
 
     @Id
     @Column(name = "programme_id")
-    private String programmeId;
+    private String id;
     @Column
     private String programmeName;
     @Column

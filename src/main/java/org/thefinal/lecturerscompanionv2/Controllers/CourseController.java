@@ -24,20 +24,29 @@ public class CourseController {
         model.addAttribute("courses", courses);
         return "/Front/AdminCourse";
     }
-    @GetMapping("/{courseId}")
-    public String showCourse(@PathVariable String courseId, Model model) {
+
+    @GetMapping("/{courseId}/students")
+    public String getStudentsForCourse(@PathVariable String courseId, Model model) {
         List<String> studentNames = courseService.getStudentNamesForCourse(courseId);
         model.addAttribute("students", studentNames);
-        return "/Front/LAttendanceRecord"; // Name of your Thymeleaf template
+        return "/Front/LAttendanceRecord :: studentList"; // Return the fragment containing the student names
     }
     @GetMapping("/all")
     public String getAll(@RequestParam(name = "school", required = false) String selectedSchool, Model model) {
-        List<Courses> courses = courseService.getAllCourses();// Assuming your service method returns List<Model>
-        courses=courses.stream().distinct().collect(Collectors.toList());
+        List<Courses> courses = courseService.getAllCourses();
+        courses = courses.stream().distinct().collect(Collectors.toList());
         model.addAttribute("courses", courses);
         model.addAttribute("selectedSchool", selectedSchool);
-        courseService.getAllCourses();
-        return "/Front/AdminCourse"; // Assuming "dropdown" is the name of your Thymeleaf template
+        return "/Front/AdminCourse";
+    }
+
+    @GetMapping("/attendanceRecord")
+    public String getAttendanceRecord(@RequestParam(name = "school", required = false) String selectedSchool, Model model) {
+        List<Courses> courses = courseService.getAllCourses();
+        courses = courses.stream().distinct().collect(Collectors.toList());
+        model.addAttribute("courses", courses);
+        model.addAttribute("selectedSchool", selectedSchool);
+        return "/Front/LAttendanceRecord";
     }
     @PostMapping("/save")
     public String saveProgrammes(@ModelAttribute Courses coursesList, BindingResult bindingResult) {
