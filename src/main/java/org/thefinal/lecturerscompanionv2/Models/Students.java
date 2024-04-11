@@ -1,6 +1,10 @@
 package org.thefinal.lecturerscompanionv2.Models;
 
 import jakarta.persistence.*;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +23,6 @@ public class Students {
     @JoinColumn(name = "programme_id")
     private Programmes programme;
 
-    @ManyToMany(mappedBy = "students")
-    private Set<AttendanceRecords> attendanceRecords;
-
 
     @Column
     private String lastname; @Column
@@ -30,5 +31,9 @@ public class Students {
     private String nextOfKin; @Column
     private String nextOfKinPhone; @Column
     private String address;
+    @OneToMany(mappedBy = "student")
+    private Collection<Attendance> attendances;
+
+
 
 }

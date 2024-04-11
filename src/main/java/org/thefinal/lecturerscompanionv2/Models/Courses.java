@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
 import java.util.Set;
 
 @Entity(name = "courses")
@@ -13,6 +14,7 @@ public class Courses {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String courseId;
     @Column
     private String courseName;
@@ -24,13 +26,16 @@ public class Courses {
     @ManyToOne
     @JoinColumn(name = "programme_id")
     private Programmes programme;
-    @Column
-    private String Lecturer;
+
+    @OneToOne(mappedBy = "course")
+    private Lecturers lecturer;
+    @OneToMany(mappedBy = "course")
+    private Collection<Attendance> attendances;
     @Column
     private String chairperson;
     @Column
     private String totalStudents;
-    @OneToMany(mappedBy = "course")
-    private Set<AttendanceRecords> attendanceRecords;
+    @Column private Long totalLectures;
+
 
 }

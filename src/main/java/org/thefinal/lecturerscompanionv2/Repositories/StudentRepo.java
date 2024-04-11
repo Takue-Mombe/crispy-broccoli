@@ -13,4 +13,6 @@ public interface StudentRepo extends JpaRepository<Students,String> {
     List<Students> findByProgrammeId(String programId);
 
     List<Students> findByProgramme(Programmes programme);
+
+    Students findByRegNumber(String regNumber);
 }

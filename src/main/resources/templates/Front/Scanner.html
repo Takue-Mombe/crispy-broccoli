@@ -129,20 +129,20 @@
 
   function sendDataToBackend(regNumber) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8081/api/students/add", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.open("POST", "http://localhost:8080/api/attendance", true); // Endpoint to mark attendance
+    xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
-          console.log("Student added successfully");
+          console.log("Attendance marked successfully");
           // Optionally, display a success message
         } else {
-          console.error("Error adding student:", xhr.responseText);
+          console.error("Error marking attendance:", xhr.responseText);
           // Optionally, display an error message
         }
       }
     };
-    xhr.send("regNumber=" + encodeURIComponent(regNumber));
+    xhr.send(JSON.stringify({ attendanceId: 123, regNumber: regNumber })); // Replace 123 with actual attendance ID
   }
 
   function showSuccessAlert() {

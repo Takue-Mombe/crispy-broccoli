@@ -295,6 +295,7 @@
             </div>
 
           <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="startScanner()">Start Scanner</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
@@ -360,8 +361,12 @@
             outputData.parentElement.hidden = false;
             outputData.innerText = code.data;
 
+            // Extracting registration number and course ID
+            var regNumber = code.data;
+            var selectedCourseId = document.getElementById("courseDropdown").value;
+
             // Send data to backend
-            sendDataToBackend(code.data);
+            sendDataToBackend(regNumber, selectedCourseId);
           } else {
             outputMessage.hidden = false;
             outputData.parentElement.hidden = true;
@@ -370,9 +375,9 @@
         requestAnimationFrame(tick);
       }
 
-      function sendDataToBackend(regNumber) {
+      function sendDataToBackend(regNumber, courseId) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost:8080/api/students/add", true);
+        xhr.open("POST", "http://localhost:8080/api/attendance", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function() {
           if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -385,11 +390,11 @@
             }
           }
         };
-        xhr.send("regNumber=" + encodeURIComponent(regNumber));
+        // Sending both registration number and course ID to the backend
+        xhr.send("regNumber=" + encodeURIComponent(regNumber) + "&courseId=" + encodeURIComponent(courseId));
       }
-
-
     </script>
+
     <script th:inline="javascript">
       function getStudents() {
         var selectedCourseId = document.getElementById("courseDropdown").value;
@@ -427,6 +432,7 @@
         });
       }
     </script>
+
 
   </body>
 </html>
